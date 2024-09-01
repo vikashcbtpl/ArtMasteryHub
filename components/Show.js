@@ -1,25 +1,34 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../styles/bodyInMotionStyle2.css";
 import "../styles/bodyInMotionStyle3.css";
 import "../styles/bodyInMotionextraStyle.css";
 import PanZoom from "react-easy-panzoom";
 import { useRouter } from "next/navigation";
+import { unsplashApi } from "./api";
+import useCustomTimer from "../customHooks/useCustomTimer";
 
-const Show= () => {
+const Show = () => {
   const panZoomRef = useRef(null);
   const router = useRouter();
-  const [imagesList, setImagesList] = useState([
-    "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-    "https://images.unsplash.com/photo-1587586062323-836089e60d52?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29sb3Vyc3xlbnwwfHwwfHx8MA%3D%3D",
-    "https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg",
-    "https://castfromclay.co.uk/wp-content/uploads/image-asset-1-1024x683.jpeg",
-    "https://www.godaddy.com/resources/wp-content/uploads/social-media-images-woman-taking-photo.jpg?size=768x0",
-    "https://i0.wp.com/picjumbo.com/wp-content/uploads/breathtaking-bali-nature-free-photo.jpg?w=600&quality=80",
-    "https://i0.wp.com/picjumbo.com/wp-content/uploads/gorgeous-sunset-over-the-sea-free-image.jpeg?h=800&quality=80",
-  ]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  console.log("currentIndex", currentIndex % 6);
+  const [unsplashImages, setUnsplashImages] = useState([]);
+  const { timeLeft, isRunning, startTimer, pauseTimer, resumeTimer, resetTimer } = useCustomTimer();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await unsplashApi();
+      console.log("data", data);
+      setUnsplashImages(data);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if(!isRunning){
+      startTimer();
+    }
+  }, [timeLeft, isRunning]);
 
   const handleZoomIn = () => {
     if (panZoomRef.current) {
@@ -48,7 +57,7 @@ const Show= () => {
             className="quickdraw-timer"
             style={{ display: "block" }}
           >
-            1:49
+            {timeLeft}
           </span>
           <img
             src="https://springfieldeducation.org/wp-content/uploads/2018/09/wallpaper-wiki-plain-blue-background-wallpaper-hd-pic-wpe006182.jpg"
@@ -79,9 +88,9 @@ const Show= () => {
         >
           <img
             srcSet={
-              imagesList[
-                currentIndex % 6 > 0 ? currentIndex % 6 : -(currentIndex % 6)
-              ]
+              unsplashImages[
+                currentIndex % 30 > 0 ? currentIndex % 30 : -(currentIndex % 30)
+              ]?.urls?.full
             }
             alt="SAVE IMAGE TO COLLECTION"
             style={{ width: "100%", height: "100%" }}

@@ -1,12 +1,13 @@
-
 "use client";
 
 import { useRouter } from "next/navigation";
 
+//daily-sketch-practice
+
 const Home = () => {
   const router = useRouter();
   const handleClick = () => {
-    router.push("/quick-draw/show");
+    router.push("/quick-draw");
   };
   return (
     <main>
