@@ -1,15 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import Timer from 'easytimer.js';
 
-const useCustomTimer = () => {
+const useCustomTimer = (initialTime=1) => {
   const [timeLeft, setTimeLeft] = useState('00:00:00');
   const [isRunning, setIsRunning] = useState(false);
   const timerRef = useRef(null);
 
-  // Function to initialize the timer with a given time
-  const initializeTimer = (minutes = 1) => {
+  const initializeTimer = (minutes) => {
     if (timerRef.current) {
-      timerRef.current.stop(); // Stop any running timer
+      timerRef.current.stop();
     }
     timerRef.current = new Timer();
 
@@ -22,14 +21,14 @@ const useCustomTimer = () => {
 
     // When the timer reaches zero, start with a new value
     timerRef.current.addEventListener('targetAchieved', () => {
-      initializeTimer(2);
+      initializeTimer(initialTime);
     });
 
     setIsRunning(true);
   };
 
-  const startTimer = () => {
-    initializeTimer(1);
+  const startTimer = (minutes = initialTime) => {
+      initializeTimer(minutes);
   };
 
   const pauseTimer = () => {
@@ -41,16 +40,15 @@ const useCustomTimer = () => {
 
   const resumeTimer = () => {
     if (timerRef.current) {
-      timerRef.current.resume();
+      timerRef.current.start();
       setIsRunning(true);
     }
   };
 
   const resetTimer = () => {
-    initializeTimer(1);
+    initializeTimer(initialTime);
   };
 
-  // Clean up the timer on component unmount
   useEffect(() => {
     return () => {
       if (timerRef.current) {
