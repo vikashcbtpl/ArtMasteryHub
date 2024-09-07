@@ -9,10 +9,16 @@ const Home = () => {
   const handleClick = () => {
     router.push("/quick-draw");
   };
+  const handleAboutusClick = () => {
+    router.push("./aboutus");
+  };
   return (
     <main>
-      <h1>home page</h1>
+      <h1 className="font-bold text-black">home page</h1>
+      <div className="flex flex-col">
       <button onClick={handleClick}>click me</button>
+      <button onClick={handleAboutusClick}>About Us</button>
+      </div>
     </main>
   );
 };
