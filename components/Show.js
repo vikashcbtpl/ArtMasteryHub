@@ -3,10 +3,20 @@ import React, { useEffect, useRef, useState } from "react";
 import "../styles/bodyInMotionStyle2.css";
 import "../styles/bodyInMotionStyle3.css";
 import "../styles/bodyInMotionextraStyle.css";
+import "../styles/show.css";
 import PanZoom from "react-easy-panzoom";
 import { useRouter } from "next/navigation";
 import { unsplashApi } from "./api";
 import useCustomTimer from "../customHooks/useCustomTimer";
+import {
+  LeftCircleOutlined,
+  PauseCircleOutlined,
+  PlayCircleOutlined,
+  RightCircleOutlined,
+  ZoomInOutlined,
+  ZoomOutOutlined,
+  RedoOutlined
+} from "@ant-design/icons";
 
 const Show = () => {
   const panZoomRef = useRef(null);
@@ -34,33 +44,54 @@ const Show = () => {
   }, []);
 
   useEffect(() => {
-    if(!isRunning){
+    if (!isRunning) {
       startTimer();
     }
-  }, [timeLeft, isRunning]);
+  }, [timeLeft]);
 
-  const handleZoomIn = () => {
+  const getImageToDisplay = (displayType) => {
+    if (displayType === "next") {
+      setCurrentIndex((prev) => prev + 1)
+    } else if (displayType === "prev") {
+      setCurrentIndex((prev) => prev - 1)
+    }
+    resetTimer();
+  }
+  
+  const handleImageOnLoad = () =>{
+    panZoomRef.current.autoCenter();
+  }
+
+  useEffect(() => {
+    if (timeLeft === "00:00:00") {
+      setCurrentIndex((prev) => prev + 1)
+    }
+  }, [timeLeft])
+
+  const handleZoomMethod = (zoomType) => {
     if (panZoomRef.current) {
-      panZoomRef.current.zoomIn();
+      switch (zoomType) {
+        case "zoomIn":
+          panZoomRef.current.zoomIn();
+          break;
+        case "zoomOut":
+          panZoomRef.current.zoomOut();
+          break;
+        case "reset":
+          panZoomRef.current.reset();
+          panZoomRef.current.autoCenter();
+          break;
+        default:
+          console.warn("Unknown zoom type:", zoomType);
+      }
     }
   };
 
-  const handleZoomOut = () => {
-    if (panZoomRef.current) {
-      panZoomRef.current.zoomOut();
-    }
-  };
 
-  const handleReset = () => {
-    if (panZoomRef.current) {
-      panZoomRef.current.reset();
-      // panZoomRef.current.autoCenter();
-    }
-  };
   return (
     <div id="quick_draw">
       <section className="full-screen-section fullscreen overflow-hidden quickdrav-full-section">
-        <div className="full-top-timer full-top-timer-block">
+        <div className="full-top-timer full-top-timer-block full-top-position-top">
           <span
             id="timer"
             className="quickdraw-timer"
@@ -79,15 +110,16 @@ const Show = () => {
             }}
           />
         </div>
-        <span className="slide-full-arrow"></span>
         <PanZoom
           ref={panZoomRef}
-          // enablePan={true}
-          // enableZoom={true}
+          autoCenter
           zoomSpeed={0.5}
           autoCenterZoomLevel={1}
           minZoom={0.5}
           maxZoom={3}
+          onStateChange={() => {
+            console.log("onStateChange of panZoom");
+          }}
           style={{
             minWidth: "100%",
             maxHeight: "calc(-59px + 100vh)",
@@ -96,58 +128,32 @@ const Show = () => {
           }}
         >
           <img
-            srcSet={
+            src={
               unsplashImages.length === 0 ? imagesList[currentIndex % 6 > 0 ? currentIndex % 6 : -(currentIndex % 6)] : unsplashImages[
                 currentIndex % 30 > 0 ? currentIndex % 30 : -(currentIndex % 30)
               ]?.urls?.full
             }
-            alt="SAVE IMAGE TO COLLECTION"
+            onLoad={handleImageOnLoad}
+            alt="current image"
             style={{ width: "100%", height: "100%" }}
           />
         </PanZoom>
-        <span className="slide-full-arrow slide-full-arrow-right"></span>
         <div className="full-bottom">
-          <div className="save-icon-block">
-            <picture>
-              <img
-                srcSet="https://static.vecteezy.com/system/resources/previews/000/426/000/original/vector-save-icon.jpg"
-                alt="SAVE IMAGE TO COLLECTION"
-                width="33"
-                height="33"
-              />
-            </picture>
-            <span>SAVE IMAGE TO COLLECTION</span>
-          </div>
-          <div className="bottom-slider-arrows-item d-flex align-items-center">
-            <span
-              className="slide-bottom-arrow"
-              onClick={() => setCurrentIndex((prev) => prev + 1)}
-            ></span>
-            <div className="slide-bottom-current-number d-flex flex-column align-items-center">
-              <span>IMAGE</span>
-              <i>1</i>
+          <div className="bottom-slider-arrows-item d-flex align-items-center play-pause-icon-container">
+            <LeftCircleOutlined onClick={()=>getImageToDisplay("prev")} style={{ fontSize: "40px" }} />
+            <div className="play-pause-icon">
+              {isRunning ? <div onClick={pauseTimer}><PauseCircleOutlined style={{ fontSize: "40px" }} /></div> :
+                <div onClick={resumeTimer} ><PlayCircleOutlined style={{ fontSize: "40px" }} /></div>}
             </div>
-            <span
-              className="slide-bottom-arrow slide-bottom-arrow-right"
-              onClick={() => setCurrentIndex((prev) => prev - 1)}
-            ></span>
-            <div className="bottom-slider-count d-flex flex-column align-items-center">
-              <span>OF</span>
-              <i>10</i>
-            </div>
+            <RightCircleOutlined onClick={()=>getImageToDisplay("next")} style={{ fontSize: "40px" }} />
           </div>
           <div className="scale-icon-block">
             <span
               className="scale-icon-plus"
               data-tooltip="Zoom in"
-              onClick={handleZoomIn}
+              onClick={() => handleZoomMethod("zoomIn")}
             >
-              <picture>
-                <img
-                  srcSet="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQie15nPsxqCPpzRZh6wx2aDxfmTVTpG7izFQ&s"
-                  alt="zoom plus image"
-                />
-              </picture>
+              <ZoomInOutlined style={{ fontSize: "25px" }} />
             </span>
             <div className="scale-default-zoom d-flex flex-column align-items-center">
               <span>SCALE</span>
@@ -155,26 +161,17 @@ const Show = () => {
                 className="motion-icon"
                 data-tooltip="Reset zoom"
                 data-flow="up"
-                onClick={handleReset}
+                onClick={() => handleZoomMethod("reset")}
               >
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/2618/2618245.png"
-                  alt="Reset zoom"
-                  width="18"
-                />
+                <RedoOutlined style={{ fontSize: "15px" }} />
               </span>
             </div>
             <span
               className="scale-icon-minus"
               data-tooltip="Zoom out"
-              onClick={handleZoomOut}
+              onClick={() => handleZoomMethod("zoomOut")}
             >
-              <picture>
-                <img
-                  srcSet="https://i.pinimg.com/474x/0b/64/87/0b64876081731876d55ff50000934c62.jpg"
-                  alt="zoom minus image"
-                />
-              </picture>
+              <ZoomOutOutlined style={{ fontSize: "25px" }} />
             </span>
           </div>
           <div className="exit-full-screen-icon-block">
