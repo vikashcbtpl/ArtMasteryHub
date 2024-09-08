@@ -1,0 +1,106 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#container{
+    display: flex;
+    justify-content: center;
+    color: black;
+    padding: 10px 30px;
+}
+#box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1215px;
+    width: 100%; 
+    padding: 30px 15px 80px;
+    margin: auto;
+}
+#inside-box{
+    display: flex;
+}
+#content{
+    background-color: #ffffff;
+    width: 65%;
+    margin-right: 2.5%;
+    border-radius: 1em;
+    padding: 2em;
+    box-shadow: 0 -3px 13px 0 rgba(0, 0, 0, 0.3);
+    text-align: left;
+}
+#heading{
+    font-weight: 500;
+    font-size: 38px;
+    margin: 20px 0 47px 21px;
+}
+#form{
+    display: flex;
+    flex-direction: column;
+}
+.input-field{
+    margin: 0 0 26.4px;
+    padding: 0.65em 1.4em;
+    font-size: 0.88em;
+    border: 0.1em solid #b8d5de;
+    border-radius: 1.5em;
+}
+#message-input{
+    height: 10.2em;
+}
+label{
+    font-size: 0.9em;
+    margin: 0 0 2.88px 18.72px;
+}
+.form-button{
+    position: relative;
+    text-align: right;
+    margin-bottom: 1.65em;
+}
+button{
+    position: absolute;
+    width: auto;
+    border-radius: 1.5em !important;
+    background-color: #529cb2 !important;
+    border-color: #529cb2 !important;
+}
+button:hover{
+    background-color: #80c3da !important;
+    border: #80c3da !important;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
+}
+#image{
+    border: 2px solid #999;
+}
+img{
+    height: 616px;
+    width: 100%;
+    object-fit:cover;
+}
+@media(max-width:767px){
+
+    #inside-box{
+        flex-direction: column;
+    }
+    #heading{
+        font-size: 30px;
+        margin: 13px 0 0;
+        padding: 10px 0;
+        text-align: center;
+    }
+    #content{
+        width: 100%;
+    }
+    #image{
+        margin-top: 1.5em;
+    }
+    img{
+        object-fit: cover;
+    }
+}
+@media(max-width:450px){
+    #container{
+        padding: 0;
+    }
+}
