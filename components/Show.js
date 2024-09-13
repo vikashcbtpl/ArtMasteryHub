@@ -6,7 +6,7 @@ import "../styles/bodyInMotionextraStyle.css";
 import "../styles/show.css";
 import PanZoom from "react-easy-panzoom";
 import { useRouter } from "next/navigation";
-import { unsplashApi } from "./api";
+import { deviantartApi, unsplashApi } from "./api";
 import useCustomTimer from "../customHooks/useCustomTimer";
 import {
   LeftCircleOutlined,
@@ -37,10 +37,17 @@ const Show = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await unsplashApi();
-      console.log("data", data);
-      setUnsplashImages(data);
+      // console.log("data", data);
+      // setUnsplashImages(data);
     };
     fetchData();
+
+    const deviantFetch = async() =>{
+      const data = await deviantartApi();
+      console.log("data fro deviantart", data.results);
+      setUnsplashImages(data.results);
+    }
+    deviantFetch();
   }, []);
 
   useEffect(() => {
@@ -130,8 +137,9 @@ const Show = () => {
           <img
             src={
               unsplashImages.length === 0 ? imagesList[currentIndex % 6 > 0 ? currentIndex % 6 : -(currentIndex % 6)] : unsplashImages[
-                currentIndex % 30 > 0 ? currentIndex % 30 : -(currentIndex % 30)
-              ]?.urls?.full
+                currentIndex % 24 > 0 ? currentIndex % 24 : -(currentIndex % 24)
+              ]?.preview?.src
+              //urls?.full
             }
             onLoad={handleImageOnLoad}
             alt="current image"
