@@ -1,4 +1,4 @@
-import ConfigureTimerDetail from "../../components/ConfigureTimerDetail";
+import ConfigureTimerDetail from "../../components/configureTimerDetail/ConfigureTimerDetail";
 
 const ConfigureTimerDetailRoute = () => {
 

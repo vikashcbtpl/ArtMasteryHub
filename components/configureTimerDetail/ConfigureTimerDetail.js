@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import ConfigureCard from "./ConfigureCard";
 
 const ConfigureTimerDetail = () => {
     const router = useRouter();
@@ -10,6 +11,7 @@ const ConfigureTimerDetail = () => {
     return (
         <div>
             <h1>Configure Timer Detail new comp</h1>
+            <ConfigureCard type="module" />
             <button onClick={handleClick}>click me</button>
         </div>
     )
