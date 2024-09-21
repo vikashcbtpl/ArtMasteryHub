@@ -1,0 +1,119 @@
+.login-container{
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 50px 15px;
+}
+h1{
+    color: black;
+    font-size: 1.75rem;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+form{
+    display: block;
+    margin-top: 0em;
+    unicode-bidi: isolate;
+}
+.email-div{
+    font-size: 14px;
+    margin-bottom: 18px;
+    position: relative;
+}
+.email-label{
+    color: #000;
+    margin-bottom: 1px;
+    margin-left: 1em;
+    font-size: 1em;
+    letter-spacing: 1px;
+}
+#email-input{
+    display: block;
+    width: 100%;
+    background-color: transparent;
+    color: #000;
+    border-radius: 0;
+    box-shadow: none;
+    box-shadow: none;
+    border-radius: 1.5em;
+    border: .1em solid #b8d5de;
+    padding: .65em 1.4em;
+    font-size: 1em;
+    background-clip: padding-box;
+}
+.password-div{
+    font-size: 14px;
+    margin-bottom: 18px;
+    position: relative;
+}
+.password-label{
+    color: #000;
+    margin-bottom: .2em;
+    margin-left: 1em;
+    font-size: 1em;
+    letter-spacing: 1px;
+}
+#password-input{
+    display: block;
+    width: 100%;
+    background-color: transparent;
+    color: #000;
+    border-radius: 0;
+    box-shadow: none;
+    box-shadow: none;
+    border-radius: 1.5em;
+    border: .1em solid #b8d5de;
+    padding: .65em 1.4em;
+    font-size: 1em;
+    background-clip: padding-box;
+}
+.remember-div{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+#remember-input{
+    padding: 0;
+}
+.remember-label{
+    color: #000;
+    margin-bottom: .2em;
+    margin-left: 1em;
+    font-size: 0.8em;
+    letter-spacing: 1px;
+}
+.login-button{
+    background-color: #529cb2;
+    color: #fff;
+    border: 2px solid #529cb2;
+    margin-top: 1.5rem;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+    padding: 7px 30px;
+    font-size: 18px;
+    line-height: 1.5;
+    border-radius: 2rem;
+    
+}
+.login-button:hover{
+    background-color: #8bc2d3;
+    border-color: #8bc2d3;
+    cursor: pointer;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+.forget-div{
+    text-align: center;
+    margin-top: 0.8rem;
+}
+.forget-anchor{
+    cursor: pointer;
+    color: #529cb2;
+    font-size: 14px;
+}

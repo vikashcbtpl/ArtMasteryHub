@@ -8,22 +8,22 @@ const Contact = () => {
       <div id='box'>
         <h1 id='heading'>CONTACT US</h1>
         <div id='inside-box'>
-          <div id='content'>
+          
             <form id='form'>
               <label>Name</label>
-              <Input placeholder="Your Name" id="name-input" className="input-field"/>
+              <input placeholder="Your Name" id="name-input" className="input-field"/>
               <label>Email</label>
-              <Input  placeholder="Your Email" id="email-input" className="input-field"/>
+              <input  placeholder="Your Email" id="email-input" className="input-field"/>
               <label>Subject</label>
-              <Input placeholder="Subject Message" id="name-input" className="input-field"/>
+              <input placeholder="Subject Message" id="name-input" className="input-field"/>
               <label>Message</label>
               <Input.TextArea placeholder="Your Message" id="message-input" className="input-field"/>
               <br/>
               <div className="form-button">
-              <Button  type="primary submit">SEND MESSAGE</Button>
+              <button type="primary submit" className='submit-button'>SEND MESSAGE</button>
               </div>
             </form>
-          </div>
+          
           <div id='image'>
             <img src="https://www.bodiesinmotion.photo/img/BreakDance_Flip.jpg" alt="contactUs-image"/>
           </div>  
