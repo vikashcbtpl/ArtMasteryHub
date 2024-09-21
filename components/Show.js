@@ -1,8 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import "../styles/bodyInMotionStyle2.css";
-import "../styles/bodyInMotionStyle3.css";
-import "../styles/bodyInMotionextraStyle.css";
 import "../styles/show.css";
 import PanZoom from "react-easy-panzoom";
 import { useRouter } from "next/navigation";
