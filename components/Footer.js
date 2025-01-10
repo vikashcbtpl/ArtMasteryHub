@@ -25,7 +25,7 @@ const Footer = () => {
                 <li><a>FAQ</a></li>
             </ul>
             <ul className='unordered'>
-                <li><a>PLANS PRINCING</a></li>
+                <li><a>PLANS PRINCIN G</a></li>
                 <li><a>LICENSES</a></li>
                 <li><a>PRIVACY_POLICY</a></li>
                 <li><a>BLOG</a></li>
